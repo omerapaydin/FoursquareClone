@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FFC177EA2CCAC7CC007A1ED2 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = FFC177E92CCAC7CC007A1ED2 /* ParseLiveQuery */; };
+		FFC177EC2CCAC7CC007A1ED2 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = FFC177EB2CCAC7CC007A1ED2 /* ParseObjC */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FFC177CB2CCA9009007A1ED2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFC177EC2CCAC7CC007A1ED2 /* ParseObjC in Frameworks */,
+				FFC177EA2CCAC7CC007A1ED2 /* ParseLiveQuery in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +132,8 @@
 			);
 			name = FoursquareClone;
 			packageProductDependencies = (
+				FFC177E92CCAC7CC007A1ED2 /* ParseLiveQuery */,
+				FFC177EB2CCAC7CC007A1ED2 /* ParseObjC */,
 			);
 			productName = FoursquareClone;
 			productReference = FFC177B42CCA9008007A1ED2 /* FoursquareClone.app */;
@@ -208,6 +217,9 @@
 			);
 			mainGroup = FFC177AB2CCA9007007A1ED2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FFC177E82CCAC7CC007A1ED2 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FFC177B52CCA9008007A1ED2 /* Products */;
 			projectDirPath = "";
@@ -563,6 +575,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FFC177E82CCAC7CC007A1ED2 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/parse-community/Parse-SDK-iOS-OSX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FFC177E92CCAC7CC007A1ED2 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FFC177E82CCAC7CC007A1ED2 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseLiveQuery;
+		};
+		FFC177EB2CCAC7CC007A1ED2 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FFC177E82CCAC7CC007A1ED2 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseObjC;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FFC177AC2CCA9007007A1ED2 /* Project object */;
 }
