@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import ParseCore
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
@@ -23,9 +24,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         
  
 
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveButtonClicked))
-        
-        navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: .done, target: self, action: #selector(backButtonClicked))
+   
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "<back", style: .done, target: self, action: #selector(backButtonClicked))
         
         mapView.delegate = self
         locationManager.delegate = self
@@ -56,8 +56,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             annotation.subtitle = PlaceModel.sharedInstance.placeType
             self.mapView.addAnnotation(annotation)
             
-            self.chosenLatitude = String(coordinate.latitude)
-            self.chosenLongitude = String(coordinate.longitude)
+            PlaceModel.sharedInstance.placeLatitude = String(coordinate.latitude)
+            PlaceModel.sharedInstance.placeLongitude = String(coordinate.longitude)
            
             
         }
@@ -77,19 +77,43 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         
     }
     
-    
-    @objc func saveButtonClicked() {
-        
-    }
-    
-    
+ 
     @objc func backButtonClicked() {
-        
+        self.dismiss(animated: true)
     }
     
     
     
-
+    @IBAction func save(_ sender: Any) {
+        
+        let placeModel = PlaceModel.sharedInstance
+        
+        let object = PFObject(className: "Places")
+        object["name"] = placeModel.placeName
+        object["type"] = placeModel.placeType
+        object["atmosphere"] = placeModel.placeAtmosphere
+        object["latitude"] = placeModel.placeLatitude
+        object["longitude"] = placeModel.placeLongitude
+       
+        if let imageData = placeModel.placeImage.jpegData(compressionQuality: 0.5){
+            object["image"] = PFFileObject(name: "image.jpg", data: imageData)
+        }
+        
+        
+        object.saveInBackground { (success, error) in
+            if success {
+                self.performSegue(withIdentifier: "fromMapVC", sender: nil)
+            } else {
+                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        
+        
+    }
+    
  
 
 }
