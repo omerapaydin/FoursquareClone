@@ -6,24 +6,52 @@
 //
 
 import UIKit
+import MapKit
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
+    var locationManager = CLLocationManager()
+    @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+ 
 
-        // Do any additional setup after loading the view.
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveButtonClicked))
+        
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: .done, target: self, action: #selector(backButtonClicked))
+        
+        mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: location, span: span)
+        mapView.setRegion(region, animated: true)
+        
+        
     }
-    */
+    
+    
+    @objc func saveButtonClicked() {
+        
+    }
+    
+    
+    @objc func backButtonClicked() {
+        
+    }
+    
+    
+    
+
+ 
 
 }

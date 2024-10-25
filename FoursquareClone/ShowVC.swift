@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import MapKit
 
 class ShowVC: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var placeAt: UILabel!
+    @IBOutlet weak var placeType: UILabel!
+    @IBOutlet weak var placeName: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
